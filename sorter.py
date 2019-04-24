@@ -2,7 +2,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 class SortMenu:
+    """Class to work with sort menu"""
     def __init__(self, driver, menu_xpath, items_xpaths):
+        """items_xpaths is a dict which contains sort items alias as kyes
+        and related from menu_xpath xpaths."""
         self.driver = driver
         self.xpath = menu_xpath
         self.items_xpaths = items_xpaths

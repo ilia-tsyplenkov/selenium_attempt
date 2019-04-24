@@ -3,7 +3,6 @@
 """TODO: add module docs."""
 
 import time
-from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from filter_menu import BaseFilterMenu
 from sorter import SortMenu
@@ -27,8 +26,8 @@ DISPLAY_SIZE_EXPAND_XPATH = "//div[@id='Attr_prof_5828']/div[@class='ModelFilter
 SHOW_RES_BUTTON = "ModelFilter__TxtBtnFormBlock"
 
 SORTER_XPATH = "//div[@class='PageTip__WapperPanel']/div[1]/div[1]/div[2]/div[1]/span[1]"
-SORTER_ITEMS = {"from_cheap": "./span[2]/ul[1]/li[2]",
-                "from_expensive": "./span[2]/ul[1]/li[3]"}
+SORTER_ITEMS = {"price_asc": "./span[2]/ul[1]/li[2]",
+                "price_desc": "./span[2]/ul[1]/li[3]"}
 
 RESULTS_XPATH = "//div[@itemtype='https://schema.org/ItemList']/div[1]/div[@class='ModelList']/div"
 PAGINATOR_XPATH = "//div[@itemtype='https://schema.org/ItemList']/div[2]/div[1]/div[1]"
@@ -36,11 +35,8 @@ PAGINATOR_XPATH = "//div[@itemtype='https://schema.org/ItemList']/div[2]/div[1]/
 MANUFACTORY_LIST = ("Lenovo", "HP", "Dell")
 DISPLAY_SIZE_LIST = ("12", "12.1", "12.5", "13", "13.1", "13.3", "13.4")
 
-driver = webdriver.Chrome("/usr/local/bin/chromedriver")
-driver.implicitly_wait(3)
 
-
-try:
+def test_results_sorting(driver):
     driver.maximize_window()
     driver.get("https://shop.by/")
     actions = ActionChains(driver)
@@ -72,14 +68,15 @@ try:
         raise Exception("Redirect on result page is not happened.")
 
     sorter = SortMenu(driver, SORTER_XPATH, SORTER_ITEMS)
-    sorter.select("from_cheap")
+    sorter.select("price_asc")
 
     results = Results(driver, RESULTS_XPATH)
+    assert results, "Got empty result list"
     print("%s results on the page" % len(results))
 
     flink = result_item_link(results[0])
 
-    sorter.select("from_expensive")
+    sorter.select("price_desc")
     time.sleep(3)
 
     paginator = Paginator(driver, PAGINATOR_XPATH)
@@ -90,6 +87,5 @@ try:
     llink = result_item_link(results[-1])
     print(flink)
     print(llink)
-    print(flink == llink)
-finally:
-    driver.close()
+    assert flink == llink, "First item in results sorted by price ascending is not equal " \
+                           "to the latest item in results sorted by price descending"

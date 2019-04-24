@@ -10,6 +10,10 @@ MAX_PRICE_ID = "maxnum_45"
 
 
 def get_catalog_item(driver, menu_item, submenu_item=None):
+    """Find submenu_item in menu_item.
+    If submenu_item is not specified, menu_item element
+    will be returned."""
+
     general_item = driver.find_element_by_link_text(menu_item)
     if not submenu_item:
         return general_item
@@ -20,6 +24,7 @@ def get_catalog_item(driver, menu_item, submenu_item=None):
 
 
 def set_price_range(driver, min_price=None, max_price=None):
+    """Set price range in the filter area."""
     start_price = WebDriverWait(driver, COMMON_TIMEOUT).until(
         EC.presence_of_element_located((By.ID, MIN_PRICE_ID)))
     if min_price:
@@ -33,5 +38,8 @@ def set_price_range(driver, min_price=None, max_price=None):
 
 
 def result_item_link(item):
-    a_tag = item.find_element_by_xpath("./div[2]/div[1]/div[3]/div[1]").find_elements_by_tag_name('a')
+    """Return first link from search result item."""
+    a_tag = item.find_element_by_xpath(
+        "./div[2]/div[1]/div[3]/div[1]").find_elements_by_tag_name('a')
+
     return a_tag[0].get_attribute("href")
