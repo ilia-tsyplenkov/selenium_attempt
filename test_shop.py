@@ -16,9 +16,13 @@ LAPTOP_SUBMENU_ITEM = "Ноутбуки"
 
 min_price = "700"
 max_price = "1500"
-MANUFACTURE_EXPAND_XPATH = "//div[@id='Attr_prof_1000']/div[@class='ModelFilter__CharLine']/div[@class='ModelFilter__OpenHideAttr Page__DarkBgWapper']/span[@class='ModelFilter__OpenHideAttrTxt Page__DarkDotLink']"
+MANUFACTURE_EXPAND_XPATH = "//div[@id='Attr_prof_1000']/div[@class='ModelFilter__CharLine']" \
+                           "/div[@class='ModelFilter__OpenHideAttr Page__DarkBgWapper']/" \
+                           "span[@class='ModelFilter__OpenHideAttrTxt Page__DarkDotLink']"
 
-DISPLAY_SIZE_EXPAND_XPATH = "//div[@id='Attr_prof_5828']/div[@class='ModelFilter__CharLine']/div[@class='ModelFilter__OpenHideAttr Page__DarkBgWapper']/span[@class='ModelFilter__OpenHideAttrTxt Page__DarkDotLink']"
+DISPLAY_SIZE_EXPAND_XPATH = "//div[@id='Attr_prof_5828']/div[@class='ModelFilter__CharLine']" \
+                            "/div[@class='ModelFilter__OpenHideAttr Page__DarkBgWapper']" \
+                            "/span[@class='ModelFilter__OpenHideAttrTxt Page__DarkDotLink']"
 
 SHOW_RES_BUTTON = "ModelFilter__TxtBtnFormBlock"
 
@@ -34,7 +38,6 @@ DISPLAY_SIZE_LIST = ("12", "12.1", "12.5", "13", "13.1", "13.3", "13.4")
 
 driver = webdriver.Chrome("/usr/local/bin/chromedriver")
 driver.implicitly_wait(3)
-
 
 
 try:

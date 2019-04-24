@@ -8,6 +8,7 @@ SMALL_TIMEOUT = 0.5
 MIN_PRICE_ID = "minnum_45"
 MAX_PRICE_ID = "maxnum_45"
 
+
 def get_catalog_item(driver, menu_item, submenu_item=None):
     general_item = driver.find_element_by_link_text(menu_item)
     if not submenu_item:
